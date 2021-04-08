@@ -234,7 +234,7 @@ function* ShellSort(list)
 
 function* ReHeap(list, start, end)
 {
-    while (2 * start < end)
+    while (2 * start <= end)
     {
         let j = 2 * start;
 
@@ -246,8 +246,12 @@ function* ReHeap(list, start, end)
             j += 1;
         }
 
+        console.log('start: ', start, list[start].value, 'j: ', j, list[j].value);
+        console.log('startvalue < jvalue', list[start].value < list[j].value);
+
         if (list[start].value < list[j].value)
         {
+            console.log('swapped', 'start: ', start, list[start].value, 'j: ', j, list[j].value);
             swap(list, start, j);
             list[j].curr = true;
             const oldStart = start;
@@ -257,21 +261,21 @@ function* ReHeap(list, start, end)
             list[j].curr = false;
             list[oldStart].curr = false;
         }
-        else start = end;
+        else break;
     }
 }
 
 function* HeapSort(list)
 {
     resetElemStates(list);
-    const size = list.length - 1;
+    const lastIndex = list.length - 1;
 
-    for (let i = Math.floor(size / 2); i >= 0; i -= 1)
+    for (let i = Math.floor(lastIndex / 2); i >= 0; i -= 1)
     {
-        yield* ReHeap(list, i, size - 1);
+        yield* ReHeap(list, i, lastIndex);
     }
 
-    for (let i = size; i > 1; i -= 1)
+    for (let i = lastIndex; i > 0; i -= 1)
     {
         swap(list, i, 0);
         yield* ReHeap(list, 0, i - 1);
