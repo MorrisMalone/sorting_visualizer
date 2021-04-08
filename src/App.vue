@@ -162,7 +162,7 @@ export default {
         grid-template-columns: 1fr min-content 1fr;
         align-items: center;
         width: 100%;
-        max-width: 1024;
+        max-width: 1024px;
         margin: 0 auto;
 
         > .algo-selection {
